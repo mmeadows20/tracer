@@ -17,6 +17,9 @@ export const configKeys = [
   'enableTraceMetrics',
   'enableRealtimeMetrics',
   'fileBrowserExecutable',
+  'enableTypeLoad',
+  'typeLoadWarmupPasses',
+  'typeLoadLeaderboardSize',
 ] as const
 
 export type ConfigKey = typeof configKeys[number]

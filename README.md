@@ -10,6 +10,19 @@
 
 To avoid the overhead of launching a separate tsserver, it currently queries the VSCode language server to get information about tokens in an open file, and uses the timings of the responses as a proxy for the complexity of the types, following the pattern of [`@definitelytyped/perf`](https://github.com/microsoft/DefinitelyTyped-tools/blob/41ba894ba571e55fa91ef0bb0d44d6eb6d201943/packages/perf).
 
+## Compiler type load metrics (TypeLoad)
+
+Set `tsperf.tracer.enableTypeLoad` and run `Tracer: Measure type load` to measure how long the TypeScript compiler takes to resolve each declaration for the first time in a fresh program - the cost paid on file open or on a cold build.
+
+For every top-level declaration the measurement reports:
+
+- **First-touch time (ms)** - wall clock time of the first `getTypeAtLocation` call for the declaration.
+- **Checker instantiations** and **types created** - the deltas of the `getInstantiationCount` / `getTypeCount` counters around that call, the same instrumentation technique used by [`@definitelytyped/perf`](https://github.com/microsoft/DefinitelyTyped-tools/blob/41ba894ba571e55fa91ef0bb0d44d6eb6d201943/packages/perf).
+
+Results are shown as CodeLens above each declaration (`⚡ 6.8 ms · 161 inst · 130 types`). `Tracer: Show slowest types` opens a leaderboard with per-file aggregates that jumps to a declaration when clicked, and `Tracer: Measure type load at cursor` re-measures a single declaration in a fresh program for an isolated number.
+
+Measurements run inside the extension host against the project's own TypeScript (see `tsperf.tracer.typescriptPathMode`) so they are version accurate and comparable across runs. The measuring engine (`src/typeLoadEngine.ts`) is free of `vscode` imports and is covered by `test/typeLoadEngine.test.ts`.
+
 ## Trace file view and metrics
 
 The `Tracer: tsc trace` command can be run to gather accurate timings.  As with real-time metrics, these create diagnostics in the editor open files. It also opens an interface to browse trace files. Editor and UI commands enable navigating between locations in the editor and the trace.

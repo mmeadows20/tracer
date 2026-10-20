@@ -15,6 +15,7 @@ import { initDiagnostics } from './traceDiagnostics'
 import { initWebviewPanel } from './webview'
 import { initStatusBar } from './statusBar'
 import { initAppState } from './appState'
+import { initTypeLoad } from './typeLoad'
 
 let ts: typeof import('typescript')
 let tsPath: string
@@ -60,6 +61,7 @@ export async function activate(context: vscode.ExtensionContext) {
   registerCommands(context)
   initStatusBar(context)
   initDiagnostics(context)
+  initTypeLoad(context)
 }
 
 export function deactivate() {}

@@ -21,6 +21,9 @@ const currentConfig = {
   enableTraceMetrics: true,
   enableRealtimeMetrics: true,
   fileBrowserExecutable: '',
+  enableTypeLoad: false,
+  typeLoadWarmupPasses: 0,
+  typeLoadLeaderboardSize: 25,
 } satisfies Record<ConfigKey, any>
 
 export function getCurrentConfig() {
@@ -67,6 +70,9 @@ const configValidate = {
   enableTraceMetrics: isBoolean,
   enableRealtimeMetrics: isBoolean,
   fileBrowserExecutable: isString,
+  enableTypeLoad: isBoolean,
+  typeLoadWarmupPasses: isNumber,
+  typeLoadLeaderboardSize: isNumber,
 } satisfies Record<ConfigKey, any>
 
 function noop() {
@@ -89,6 +95,9 @@ const configHandlers = {
   enableTraceMetrics: noop,
   enableRealtimeMetrics: noop,
   fileBrowserExecutable: noop,
+  enableTypeLoad: noop,
+  typeLoadWarmupPasses: noop,
+  typeLoadLeaderboardSize: noop,
 } satisfies Record<ConfigKey, any>
 
 let configuration = vscode.workspace.getConfiguration(extPrefix)

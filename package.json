@@ -281,6 +281,24 @@
           },
           "description": "todo",
           "order": 15
+        },
+        "tsperf.tracer.enableTypeLoad": {
+          "type": "boolean",
+          "default": false,
+          "description": "Measure type load from the TypeScript compiler and show it as CodeLens",
+          "order": 16
+        },
+        "tsperf.tracer.typeLoadWarmupPasses": {
+          "type": "number",
+          "default": 0,
+          "description": "Throw-away measurement passes run before the reported type load numbers",
+          "order": 17
+        },
+        "tsperf.tracer.typeLoadLeaderboardSize": {
+          "type": "number",
+          "default": 25,
+          "description": "Number of slowest declarations shown in the type load leaderboard",
+          "order": 18
         }
       }
     },
@@ -321,6 +339,21 @@
       {
         "title": "Open trace directory in file browser",
         "command": "tsperf.tracer.openTraceDirExternal",
+        "category": "Tracer"
+      },
+      {
+        "title": "Measure type load",
+        "command": "tsperf.tracer.measureTypeLoad",
+        "category": "Tracer"
+      },
+      {
+        "title": "Measure type load at cursor",
+        "command": "tsperf.tracer.measureTypeLoadAtCursor",
+        "category": "Tracer"
+      },
+      {
+        "title": "Show slowest types",
+        "command": "tsperf.tracer.showTypeLoadLeaderboard",
         "category": "Tracer"
       }
     ],
